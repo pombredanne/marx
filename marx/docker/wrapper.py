@@ -23,3 +23,7 @@ class Docker(object):
     def top(self, container, **kwargs):
         out, err, ret = self._invoke("top", container, **kwargs)
         return parse_list_output(out)
+
+    def history(self, image, **kwargs):
+        out, err, ret = self._invoke("history", image, **kwargs)
+        return parse_list_output(out)
