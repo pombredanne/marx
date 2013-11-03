@@ -19,3 +19,7 @@ class Docker(object):
     def ps(self, **kwargs):
         out, err, ret = self._invoke("ps", **kwargs)
         return parse_list_output(out)
+
+    def top(self, container, **kwargs):
+        out, err, ret = self._invoke("top", container, **kwargs)
+        return parse_list_output(out)
