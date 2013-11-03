@@ -4,10 +4,6 @@ from .parser import parse_list_output
 from ..utils import run_command, run_long_command
 
 
-EVENT_RX = ("\[(?P<when>.*)\] (?P<hash>.*): "
-            "\(from (?P<host>.*):(?P<ver>.*)\) (?P<action>.*)")
-
-
 class Docker(object):
     def __init__(self, binary='docker'):
         self._binary = binary
@@ -47,4 +43,7 @@ class Docker(object):
 
     def events(self, **kwargs):
         for event in self._long_invoke("events", **kwargs):
-            yield re.match(EVENT_RX, event).groupdict()
+            yield re.match(
+                (".*\[(?P<when>.*)\] (?P<container>.*): "
+                 "\(from (?P<image>.*):(?P<tag>.*)\) (?P<action>.*).*"),
+                event).groupdict()

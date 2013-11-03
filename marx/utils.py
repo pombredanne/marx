@@ -39,6 +39,6 @@ def run_long_command(command, stdin=None):
             pipe.poll()
             if pipe.returncode is not None:
                 return
-            yield x
+            yield x.decode('utf-8', errors='ignore')
 
     return iterpipe(pipe)
