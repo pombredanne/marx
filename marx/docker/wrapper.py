@@ -41,6 +41,22 @@ class Docker(object):
     def attach(self, container, **kwargs):
         return self._long_invoke("attach", container, **kwargs)
 
+    def rm(self, *args, **kwargs):
+        out, err, ret = self._invoke("rm", *args, **kwargs)
+        return self._rm_out(out)
+
+    def rm(self, *args, **kwargs):
+        out, err, ret = self._invoke("rmi", *args, **kwargs)
+        return self._rm_out(out)
+
+    def _rm_out(out):
+        for line in out.splitlines():
+            if line.startswith("Error:"):
+                continue
+            if line.strip() == "":
+                continue
+            yield line
+
     def events(self, **kwargs):
         for event in self._long_invoke("events", **kwargs):
             yield re.match(
