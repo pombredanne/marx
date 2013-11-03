@@ -1,4 +1,5 @@
 from marx.docker.wrapper import Docker
 
 d = Docker()
-print list(d.images())
+for image in d.images():
+    print image

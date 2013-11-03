@@ -14,6 +14,7 @@ def parse_list_output(stream):
         entries = {}
         for fro, to in split:
             name, start = fro
+            name = name.lower()
             _, end = to
             if end is None:
                 entries[name] = entry[start]
