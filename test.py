@@ -1,5 +1,6 @@
-from marx.utils import run_long_command
+from marx.docker.wrapper import Docker
 
+d = Docker()
 
-for entry in run_long_command('ping -c 3 google.com'):
-    print entry
+for x in d.attach('5e54062461cf'):
+    print x
