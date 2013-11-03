@@ -42,10 +42,16 @@ class Docker(object):
         return self._long_invoke("attach", container, **kwargs)
 
     def rm(self, *args, **kwargs):
+        args = list(args)
+        if args == []:
+            raise ValueError("Need at least one container")
         out, err, ret = self._invoke("rm", *args, **kwargs)
         return self._rm_out(out)
 
     def rmi(self, *args, **kwargs):
+        args = list(args)
+        if args == []:
+            raise ValueError("Need at least one container")
         out, err, ret = self._invoke("rmi", *args, **kwargs)
         return self._rm_out(out)
 
