@@ -45,11 +45,11 @@ class Docker(object):
         out, err, ret = self._invoke("rm", *args, **kwargs)
         return self._rm_out(out)
 
-    def rm(self, *args, **kwargs):
+    def rmi(self, *args, **kwargs):
         out, err, ret = self._invoke("rmi", *args, **kwargs)
         return self._rm_out(out)
 
-    def _rm_out(out):
+    def _rm_out(self, out):
         for line in out.splitlines():
             if line.startswith("Error:"):
                 continue
