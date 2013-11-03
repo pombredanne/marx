@@ -1,0 +1,8 @@
+
+
+  - worker ratios / counts (image, command)
+  - when worker dies, respawn to match count. check policy and
+    remove worker container after (or extract via docker cp?)
+  - if worker is spawning and dying too quickly, enforce a cooldown and emit
+    a warning.
+  - if a job that is marked daemon exits, emit a warning and restart.
