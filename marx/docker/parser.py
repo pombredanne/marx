@@ -17,7 +17,7 @@ def parse_list_output(stream):
             name = name.lower()
             _, end = to
             if end is None:
-                entries[name] = entry[start]
+                entries[name] = entry[start:]
             else:
                 entries[name] = entry[start:end]
             entries[name] = entries[name].strip()
