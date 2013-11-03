@@ -1,5 +1,11 @@
+import re
+
 from .parser import parse_list_output
 from ..utils import run_command, run_long_command
+
+
+EVENT_RX = ("\[(?P<when>.*)\] (?P<hash>.*): "
+            "\(from (?P<host>.*):(?P<ver>.*)\) (?P<action>.*)")
 
 
 class Docker(object):
@@ -9,6 +15,7 @@ class Docker(object):
     def _cmd(self, *args, **kwargs):
         cmd = [self._binary, ] + list(args) + [
             "-%s=%s" % (x, kwargs[x]) for x in kwargs]
+        return cmd
 
     def _invoke(self, *args, **kwargs):
         cmd = self._cmd(*args, **kwargs)
@@ -37,3 +44,7 @@ class Docker(object):
 
     def attach(self, container, **kwargs):
         return self._long_invoke("attach", container, **kwargs)
+
+    def events(self, **kwargs):
+        for event in self._long_invoke("events", **kwargs):
+            yield re.match(EVENT_RX, event).groupdict()
