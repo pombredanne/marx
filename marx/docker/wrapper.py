@@ -6,12 +6,16 @@ class Docker(object):
     def __init__(self, binary='docker'):
         self._binary = binary
 
-    def _invoke(self, *args):
-        out, err, ret = run_command([
-            self._binary,
-        ] + list(args))
+    def _invoke(self, *args, **kwargs):
+        cmd = [self._binary, ] + list(args) + [
+            "-%s=%s" % (x, kwargs[x]) for x in kwargs]
+        out, err, ret = run_command(cmd)
         return out, err, ret
 
-    def images(self):
-        out, err, ret = self._invoke("images")
+    def images(self, **kwargs):
+        out, err, ret = self._invoke("images", **kwargs)
+        return parse_list_output(out)
+
+    def ps(self, **kwargs):
+        out, err, ret = self._invoke("ps", **kwargs)
         return parse_list_output(out)
