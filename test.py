@@ -1,5 +1,5 @@
-from marx.docker.wrapper import Docker
+from marx.utils import run_long_command
 
-d = Docker()
-for line in d.history('ubuntu'):
-    print line
+
+for entry in run_long_command('ping -c 3 google.com'):
+    print entry
