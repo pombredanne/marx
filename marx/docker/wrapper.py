@@ -8,9 +8,10 @@ class Docker(object):
     def __init__(self, binary='docker'):
         self._binary = binary
 
-    def _cmd(self, *args, **kwargs):
-        cmd = [self._binary, ] + list(args) + [
-            "-%s=%s" % (x, kwargs[x]) for x in kwargs]
+    def _cmd(self, command, *args, **kwargs):
+        cmd = [self._binary,] + [command, ] + [
+            "-%s=%s" % (x, kwargs[x]) for x in kwargs
+        ] + list(args)
         return cmd
 
     def _invoke(self, *args, **kwargs):
@@ -69,3 +70,10 @@ class Docker(object):
                 (".*\[(?P<when>.*)\] (?P<container>.*): "
                  "\(from (?P<image>.*):(?P<tag>.*)\) (?P<action>.*).*"),
                 event).groupdict()
+
+    def run(self, image, command, *args, **kwargs):
+        if "d" in kwargs:  # Detached
+            out, err, ret = self._invoke("run", image, command, *args, **kwargs)
+            return out.strip()
+        else:
+            return self._long_invoke("run", image, command, *args, **kwargs)

@@ -1,3 +1,6 @@
+import os
+import time
+import fcntl
 import shlex
 import subprocess
 from cStringIO import StringIO
@@ -29,16 +32,28 @@ def run_long_command(command, stdin=None):
         command = shlex.split(command)
 
     pipe = subprocess.Popen(command, shell=False,
-                            stdin=subprocess.PIPE,
+                            #stdin=subprocess.PIPE,
+                            stdin=None,
                             stdout=subprocess.PIPE,
-                            stderr=subprocess.PIPE)
+                            #stderr=subprocess.PIPE)
+                            stderr=None)
 
     def iterpipe(pipe):
+        fl = fcntl.fcntl(pipe.stdout, fcntl.F_GETFL)
+        fcntl.fcntl(pipe.stdout, fcntl.F_SETFL, fl | os.O_NONBLOCK)
+
         while True:
-            x = pipe.stdout.readline().strip()
             pipe.poll()
             if pipe.returncode is not None:
+                for line in pipe.stdout.readlines():
+                    yield line
                 return
+            try:
+                x = pipe.stdout.readline().strip()
+            except IOError:
+                time.sleep(0.1)
+                continue
+
             yield x.decode('utf-8', errors='ignore')
 
     return iterpipe(pipe)
