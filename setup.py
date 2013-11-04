@@ -34,7 +34,7 @@ setup(
     author_email="tag@pault.ag",
     long_description=long_description,
     description='Control the means of production',
-    license="Expat",
+    license="GPL-2+",
     url="http://deb.io/",
     platforms=['any'],
     entry_points={
