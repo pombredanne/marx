@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # Marx, the worker overseer based on docker.
 # Copyright © 2013, Paul R. Tagliamonte <tag@pault.ag>
 # 
