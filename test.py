@@ -1,5 +1,5 @@
 # Marx, the worker overseer based on docker.
-# Copyright (C) 2013, Paul R. Tagliamonte <tag@pault.ag>
+# Copyright © 2013, Paul R. Tagliamonte <tag@pault.ag>
 # 
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License
