@@ -36,7 +36,7 @@ setup(
     long_description=long_description,
     description='Control the means of production',
     license="GPL-2+",
-    url="http://deb.io/",
+    url="http://marx.anized.org/",
     platforms=['any'],
     entry_points={
         'console_scripts': [
