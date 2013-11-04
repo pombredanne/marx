@@ -16,8 +16,6 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 # 02110-1301, USA.
 
-
-
 def parse_list_output(stream):
     stream = iter(stream.splitlines())
     header_ = next(stream)
