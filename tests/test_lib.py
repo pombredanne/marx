@@ -48,3 +48,10 @@ def test_config():
     assert obj == {
         "qwerty": "qwerty"
     }
+
+def test_containers():
+    """ test that we can load a container """
+
+    l = Lib(resource_root)
+    containers = list(l.get_containers())
+    assert ['c1', 'c2'] == containers
