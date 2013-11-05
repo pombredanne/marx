@@ -19,3 +19,13 @@ def test_dockerfiles():
     l = Lib(resource_root)
     files = list(l.get_dockerfiles())
     assert files == ["TestImage"]
+
+
+def test_config():
+    """ test that we can load a comfig """
+
+    l = Lib(resource_root)
+    obj = l.get_config()
+    assert obj == {
+        "qwerty": "qwerty"
+    }

@@ -56,4 +56,7 @@ class Lib(object):
     def get_config(self):
         """
         """
-        pass
+        return self._load_json(os.path.join(
+            self.directory,
+            "config.json"
+        ))
