@@ -5,15 +5,19 @@ import os
 
 class Lib(object):
     """
+    Object that allows access to the marx lib directory, for dynamic
+    (and persistant) data.
     """
 
     def __init__(self, directory):
         """
+        `directory' is a path (absolute) to the marx lib.
         """
         self.directory = directory
 
     def _json_listing(self, path):
         """
+        List json files in path `path'
         """
         flag = ".json"
         for entry in glob.iglob(os.path.join(path, "*%s" % (flag))):
@@ -23,6 +27,8 @@ class Lib(object):
             yield entry
 
     def _file_listing(self, path):
+        """
+        """
         return os.listdir(path)
 
     def _load_json(self, path):
