@@ -29,7 +29,6 @@ setup(
     scripts=[],
     packages=[
         'marx',
-        'marx.docker',
     ],
     author="Paul Tagliamonte",
     author_email="tag@pault.ag",
