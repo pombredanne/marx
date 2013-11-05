@@ -17,6 +17,8 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 # 02110-1301, USA.
 
+import os
+
 from marx.lib import Lib
 from . import resource_root
 
@@ -38,6 +40,12 @@ def test_dockerfiles():
     l = Lib(resource_root)
     files = list(l.get_dockerfiles())
     assert files == ["TestImage"]
+
+    assert (os.path.join(
+        resource_root,
+        'dockerfiles',
+        'TestImage'
+    ) == l.get_dockerfile('TestImage'))
 
 
 def test_config():

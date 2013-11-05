@@ -47,21 +47,25 @@ class Lib(object):
 
     def _file_listing(self, path):
         """
+        Return a file listing for path `path'
         """
         return os.listdir(path)
 
     def _load_json(self, path):
         """
+        Returned a parsed json file.
         """
         return json.load(open(path, 'r'))
 
     def get_classes(self):
         """
+        Get all the classdefs by name
         """
         return self._json_listing(os.path.join(self.directory, 'classes'))
 
     def get_class(self, what):
         """
+        Load a classdef
         """
         return self._load_json(os.path.join(
             self.directory,
@@ -70,13 +74,21 @@ class Lib(object):
 
     def get_containers(self):
         """
+        Get our containers
         """
         return self._json_listing(os.path.join(self.directory, 'containers'))
 
     def get_dockerfiles(self):
         """
+        Get dockerfiles
         """
         return self._file_listing(os.path.join(self.directory, 'dockerfiles'))
+
+    def get_dockerfile(self, fp):
+        """
+        Get dockerfiles
+        """
+        return os.path.join(self.directory, 'dockerfiles', fp)
 
     def get_config(self):
         """
