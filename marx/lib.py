@@ -1,8 +1,15 @@
+import json
 
 
 class Lib(object):
     def __init__(self, directory):
         self.directory = directory
+
+    def _file_listing(self, path):
+        pass
+
+    def _load_file(self, path):
+        pass
 
     def get_classes(self):
         pass

@@ -3,4 +3,5 @@ from . import resource_root
 
 
 def test_classes():
-    print resource_root
+    l = Lib(resource_root)
+    print l.get_classes()
