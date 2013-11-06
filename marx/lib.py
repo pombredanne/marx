@@ -33,6 +33,14 @@ class Lib(object):
         `directory' is a path (absolute) to the marx lib.
         """
         self.directory = directory
+        self._ensure_exists(self.directory)
+        self._ensure_exists(os.path.join(self.directory, 'classes'))
+        self._ensure_exists(os.path.join(self.directory, 'containers'))
+        self._ensure_exists(os.path.join(self.directory, 'dockerfiles'))
+
+    def _ensure_exists(self, path):
+        if not os.path.exists(path):
+            os.path.mkdir(path)
 
     def _json_listing(self, path):
         """

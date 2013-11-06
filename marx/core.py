@@ -17,7 +17,11 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 # 02110-1301, USA.
 
+import os
 import docker
+
+from .lib import Lib
 
 
 client = docker.Client(base_url='unix://var/run/docker.sock', version="1.4")
+lib = Lib(os.path.expanduser("~/.marx"))
