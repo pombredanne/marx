@@ -40,7 +40,7 @@ class Lib(object):
 
     def _ensure_exists(self, path):
         if not os.path.exists(path):
-            os.path.mkdir(path)
+            os.mkdir(path)
 
     def _json_listing(self, path):
         """
