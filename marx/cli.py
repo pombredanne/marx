@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # Marx, the worker overseer based on docker.
 # Copyright © 2013, Paul R. Tagliamonte <tag@pault.ag>
-#
+# 
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License
 # as published by the Free Software Foundation; either version 2
@@ -17,29 +17,6 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 # 02110-1301, USA.
 
-from marx import __appname__, __version__
-from setuptools import setup
 
-
-long_description = ""
-
-setup(
-    name=__appname__,
-    version=__version__,
-    scripts=[],
-    packages=[
-        'marx',
-    ],
-    author="Paul Tagliamonte",
-    author_email="tag@pault.ag",
-    long_description=long_description,
-    description='Control the means of production',
-    license="GPL-2+",
-    url="http://marx.anized.org/",
-    platforms=['any'],
-    entry_points={
-        'console_scripts': [
-            'marxd = marx.cli:daemon',
-        ],
-    }
-)
+def daemon():
+    pass
