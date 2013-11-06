@@ -17,5 +17,7 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 # 02110-1301, USA.
 
-__appname__ = "marx"
-__version__ = "0.1"
+import docker
+
+
+client = docker.Client(base_url='unix://var/run/docker.sock', version="1.4")
