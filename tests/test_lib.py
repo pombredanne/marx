@@ -86,6 +86,8 @@ def test_containers():
 
 
 def test_remote_creation():
+    """ Test that we can CRUD containers """
+
     assert list(lib.get_containers()) == []
     lib.add_container('test', {"hello": "hello"})
     assert list(lib.get_containers()) == ['test']
