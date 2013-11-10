@@ -24,7 +24,6 @@ from tempfile import mkdtemp
 from marx.lib import Lib
 from . import resource_root
 
-
 tmpdir = None
 lib = None
 
