@@ -53,6 +53,16 @@ class Lib(object):
                 entry = entry[:-len(flag)]
             yield entry
 
+    def _write_json(self, name, class_, obj):
+        path = os.path.join(self.directory, class_, "%s.json" % (name))
+        # Schema validate.
+        json.dump(open(path, 'w'), obj)
+
+    def _remove_json(self, name, class_, obj):
+        path = os.path.join(self.directory, class_, "%s.json" % (name))
+        # Schema validate.
+        os.unlink(path)
+
     def _file_listing(self, path):
         """
         Return a file listing for path `path'
@@ -85,6 +95,12 @@ class Lib(object):
         Get our containers
         """
         return self._json_listing(os.path.join(self.directory, 'containers'))
+
+    def add_container(self, name, obj):
+        return self._write_json(name, 'containers', obj)
+
+    def remove_container(self, name):
+        return self._remove_json(name, 'containers')
 
     def get_dockerfiles(self):
         """
