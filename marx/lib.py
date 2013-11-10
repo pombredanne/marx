@@ -56,9 +56,9 @@ class Lib(object):
     def _write_json(self, name, class_, obj):
         path = os.path.join(self.directory, class_, "%s.json" % (name))
         # Schema validate.
-        json.dump(open(path, 'w'), obj)
+        json.dump(obj, open(path, 'w'))
 
-    def _remove_json(self, name, class_, obj):
+    def _remove_json(self, name, class_):
         path = os.path.join(self.directory, class_, "%s.json" % (name))
         # Schema validate.
         os.unlink(path)
@@ -101,6 +101,13 @@ class Lib(object):
 
     def remove_container(self, name):
         return self._remove_json(name, 'containers')
+
+    def get_container(self, name):
+        return self._load_json(os.path.join(
+            self.directory,
+            'containers',
+            "%s.json" % (name)
+        ))
 
     def get_dockerfiles(self):
         """

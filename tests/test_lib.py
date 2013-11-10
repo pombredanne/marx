@@ -18,9 +18,29 @@
 # 02110-1301, USA.
 
 import os
+from shutil import rmtree
 
+from tempfile import mkdtemp
 from marx.lib import Lib
 from . import resource_root
+
+
+tmpdir = None
+lib = None
+
+
+def setup_module():
+    global tmpdir
+    global lib
+
+    tmpdir = mkdtemp(suffix='marx')
+    lib = Lib(tmpdir)
+    # print("Tempdir: %s" % (tempdir))
+
+
+def teardown_module():
+    global tmpdir
+    rmtree(tmpdir)
 
 
 def test_classes():
@@ -63,3 +83,21 @@ def test_containers():
     l = Lib(resource_root)
     containers = list(l.get_containers())
     assert ['c1', 'c2'] == containers
+
+
+def test_remote_creation():
+    assert list(lib.get_containers()) == []
+    lib.add_container('test', {"hello": "hello"})
+    assert list(lib.get_containers()) == ['test']
+    lib.add_container('test', {"hello": "hello"})
+    assert list(lib.get_containers()) == ['test']
+    lib.add_container('test2', {"hello": "hello"})
+
+    obj = lib.get_container('test2')
+    assert obj == {"hello": "hello"}
+
+    assert set(lib.get_containers()) == set(['test', 'test2'])
+    lib.remove_container('test2')
+    assert list(lib.get_containers()) == ['test']
+    lib.remove_container('test')
+    assert list(lib.get_containers()) == []
