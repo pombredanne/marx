@@ -40,6 +40,7 @@ setup(
     entry_points={
         'console_scripts': [
             'marxd = marx.cli:daemon',
+            'marx-mkimage = marx.cli:mkimage',
         ],
     }
 )

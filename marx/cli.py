@@ -17,8 +17,15 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 # 02110-1301, USA.
 
-from marx.core import lib, docker
+from marx.lib import default_lib
+import sys
 
 
 def daemon():
     pass
+
+
+def mkimage():
+    lib = default_lib()
+    for entry in sys.argv[1:]:
+        lib.build_image(entry)

@@ -17,6 +17,8 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 # 02110-1301, USA.
 
+from .core import client
+
 import glob
 import json
 import os
@@ -128,3 +130,28 @@ class Lib(object):
             self.directory,
             "config.json"
         ))
+
+    def get_images(self):
+        return client.images()
+
+    def get_image(self, image):
+        return client.images(name=image)
+
+    def build_image(self, name, rebuild=False):
+        info = self.get_image(name)
+        if info and rebuild is False:
+            raise Exception("Image already exists, bronie")
+
+        image = open(self.get_dockerfile(name), 'r')
+        client.build(
+            tag=name,
+            quiet=False,
+            fileobj=image,
+            # nocache=False,
+            nocache=True,
+            rm=True,
+        )
+
+
+def default_lib():
+    return Lib(os.path.expanduser("~/.marx"))
