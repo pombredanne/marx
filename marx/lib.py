@@ -143,16 +143,22 @@ class Lib(object):
         return client.images()
 
     def get_image(self, image):
-        return client.images(name=image)
+        image = client.images(name=image)
+        if image == []:
+            raise KeyError("No such image")
+        return image
 
     def images(self):
         for image in self.images():
             yield self.get_image(image)
 
     def build_image(self, name, rebuild=False):
-        info = self.get_image(name)
-        if info and rebuild is False:
-            raise Exception("Image already exists, bronie")
+        try:
+            info = self.get_image(name)
+            if rebuild is False:
+                raise Exception("Image already exists, bronie")
+        except KeyError:
+            pass
 
         image = open(self.get_dockerfile(name), 'r')
         client.build(

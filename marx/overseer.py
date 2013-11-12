@@ -42,6 +42,11 @@ class Overseer(object):
             if image not in images:
                 print "Building image:", image
                 self.lib.build_image(image)
+                try:
+                    self.lib.get_image(image)
+                except KeyError:
+                    print "Looks like it failed?"
+                    # XXX: Fix this
 
     def _purge_old_containers(self):
         pass
