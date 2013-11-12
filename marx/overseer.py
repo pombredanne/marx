@@ -16,3 +16,32 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 # 02110-1301, USA.
+
+from .core import client
+
+
+class Overseer(object):
+    def __init__(self, lib):
+        self.lib = lib
+
+    def preflight(self):
+        checklist = [
+            self._init_images,
+            self._purge_old_containers,
+        ]
+        for entry in checklist:
+            entry()
+
+    def _init_images(self):
+        images = set(
+            x['Repository'] for x in self.lib.get_images()
+            if 'Repository' in x
+        )
+        for class_ in self.lib.classes():
+            image = class_['image']
+            if image not in images:
+                print "Building image:", image
+                self.lib.build_image(image)
+
+    def _purge_old_containers(self):
+        pass

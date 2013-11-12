@@ -18,6 +18,7 @@
 # 02110-1301, USA.
 
 from marx.lib import default_lib
+from marx.overseer import Overseer
 import sys
 
 
@@ -29,3 +30,9 @@ def mkimage():
     lib = default_lib()
     for entry in sys.argv[1:]:
         lib.build_image(entry)
+
+
+def setup():
+    lib = default_lib()
+    o = Overseer(lib)
+    o.preflight()

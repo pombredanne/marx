@@ -92,6 +92,10 @@ class Lib(object):
             'classes', "%s.json" % (what))
         )
 
+    def classes(self):
+        for class_ in self.get_classes():
+            yield self.get_class(class_)
+
     def get_containers(self):
         """
         Get our containers
@@ -110,6 +114,10 @@ class Lib(object):
             'containers',
             "%s.json" % (name)
         ))
+
+    def containers(self):
+        for container in self.get_containers():
+            yield self.get_container(container)
 
     def get_dockerfiles(self):
         """
@@ -136,6 +144,10 @@ class Lib(object):
 
     def get_image(self, image):
         return client.images(name=image)
+
+    def images(self):
+        for image in self.images():
+            yield self.get_image(image)
 
     def build_image(self, name, rebuild=False):
         info = self.get_image(name)
